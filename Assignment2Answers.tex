@@ -1,0 +1,157 @@
+% Created 2026-10-18 Sun 15:32
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Brandon Weathers}
+\date{10/15/2026}
+\title{Assignment 2 Answers}
+\hypersetup{
+ pdfauthor={Brandon Weathers},
+ pdftitle={Assignment 2 Answers},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={},
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\section*{Part A}
+\label{sec:org7e2929e}
+Blackjack is a card game played between at least 2 participants.
+For this example, there will only be two participants.
+The first (and simpler) participant is the dealer.
+The dealer doesn't has zero choices in the game, and is therefore not very interesting.
+The second participant in the game is the player.
+The player actively makes decisions.
+The dealer gives two card to himself (one face up and one face down).
+The dealer gives two card to the player, both of which are face up.
+The player has two choices: to receive another card from the dealer (hit), or to \uline{not} receive another card from the dealer (stand).
+The goal of the player is to hold cards who's sum is closer to 21 than the dealer's sum of cards.
+
+Considering all previous conditions. The following can be said.
+\begin{itemize}
+\item Environment's goal: to acquire a sum that is closer to 21 than the dealer's sum.
+\item State/observation space: the player's sum and the dealer's face up card.
+\item Action space: the choice to hit or stand.
+\item Transition dynamics: the dealer gives another card to the player.
+\item Termination conditions
+\begin{itemize}
+\item If the player acquires a natural (without hitting) sum of 21. A reward of +1.5 is given.
+\item The dealer's sum is greater than 21. A reward of +1 is given.
+\item The player's sum is greater than 21. A reward of -1 is given.
+\item After the player stands, their sum is greater than the dealer's sum. A reward of +1 is given.
+\item After the player stands, the dealer's sum is greater than the player's sum. A reward of -1 is given.
+\item After the player stands, their sum is equal to the dealer's sum (push). A reward of +0 is given.
+\end{itemize}
+\end{itemize}
+\section*{Part B}
+\label{sec:org50367c4}
+I have created the blackjack CLI agent to implement the Q-learning algorithm. The following code snippit is found withtin the training function.
+\begin{verbatim}
+if terminated or truncated:
+    target = reward
+else:
+    target = reward + gamma * np.max(Q[next_state])
+
+Q[state + (action,)] += alpha * (
+    target - Q[state + (action,)]
+)
+\end{verbatim}
+
+Please run my BlackjackCLI.py script to train the algorithm yourself.
+\section*{Part C}
+\label{sec:orgc2e48a2}
+My baseline parameters for AI training are:
+\begin{itemize}
+\item alpha = 0.1
+\item gamma = 0.95
+\item episilon = 1.0
+\item episilon\textsubscript{min} = 0.05
+\item episilon\textsubscript{decay} = 0.99999
+\item episodes = 300,000
+\end{itemize}
+
+The resulting graph shows how the algorithm preformed.
+After quickly jumping to an average reward of -0.4 from the first few rounds, the algorithm slowly climbs to an average reward of 0.
+There is a plateau from episodes 200,000 to 300,000.
+Perhaps additional training from episode 200,000 is unnecessary?
+\begin{center}
+\includegraphics[width=.9\linewidth]{./InitialTraining/InitialPlot.png}
+\end{center}
+\section*{Part D}
+\label{sec:orge304aa8}
+All other parameters are the same as in part C except.
+\begin{itemize}
+\item In the first graph, alpha = 0.2
+\item In the second graph, alpha = 0.5
+\item In the third graph, alpha = 0.9
+\end{itemize}
+
+Generally speaking, it seems increasing the alpha parameters makes the variance larger.
+In other words, the graph seems to be more violtile.
+This is reasonable conclusion because the alpha parameter represents how valued new experience is compared to the sum of all previous experience.
+\subsection*{First Graph}
+\label{sec:org6af2448}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./PartD/PartDTest1.png}
+\end{center}
+\subsection*{Second Graph}
+\label{sec:orgc3cc331}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./PartD/PartDTest2.png}
+\end{center}
+\subsection*{Third Graph}
+\label{sec:org9c90587}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./PartD/PartDTest3.png}
+\end{center}
+\section*{Part E}
+\label{sec:org69cb18e}
+All other parameters are the same as in part C except.
+\begin{itemize}
+\item In the first graph, gamma = 0.5
+\item In the second graph, gamma = 0.9
+\item In the third graph, gamma = 0.99
+\end{itemize}
+\subsection*{First Graph}
+\label{sec:org3c138aa}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./PartE/PartETest1.png}
+\end{center}
+\subsection*{Second Graph}
+\label{sec:orgcf22e3f}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./PartE/PartETest2.png}
+\end{center}
+\subsection*{Third Graph}
+\label{sec:orgd318206}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./PartE/PartETest3.png}
+\end{center}
+\section*{Part F}
+\label{sec:orga3ec1dc}
+Now, I will alter the episilon decay.
+All other parameters are the same as in part C except.
+\begin{itemize}
+\item In the first graph, episilon decay = 0.9999
+\item In the second graph, episilon decay = 0.999
+\item In the third graph, episilon decay  = 0.99
+\end{itemize}
+\subsection*{First Graph}
+\label{sec:org39b47b2}
+\subsection*{Second Graph}
+\label{sec:orgaa3b1d1}
+\subsection*{Third Graph}
+\label{sec:orgc674116}
+\end{document}
