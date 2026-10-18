@@ -1,7 +1,6 @@
 #+TITLE:Assignment 2 Answers
-#+DATE:10/15/2026
+#+DATE:10/18/2026
 #+AUTHOR:Brandon Weathers
-#+OPTIONS: num:nil toc:nil
 * Part A
 Blackjack is a card game played between at least 2 participants.
 For this example, there will only be two participants.
@@ -27,7 +26,7 @@ Considering all previous conditions. The following can be said.
   - After the player stands, the dealer's sum is greater than the player's sum. A reward of -1 is given.
   - After the player stands, their sum is equal to the dealer's sum (push). A reward of +0 is given.
 * Part B
-I have created the blackjack CLI agent to implement the Q-learning algorithm. The following code snippit is found withtin the training function.
+I have created the blackjack CLI agent to implement the Q-learning algorithm. The following code snippet is found within the training function.
 #+BEGIN_SRC python
 if terminated or truncated:
     target = reward
@@ -61,7 +60,7 @@ All other parameters are the same as in part C except.
 - In the third graph, alpha = 0.9
 
 Generally speaking, it seems increasing the alpha parameters makes the variance larger.
-In other words, the graph seems to be more violtile.
+In other words, the graph seems to be more volatile.
 This is reasonable conclusion because the alpha parameter represents how valued new experience is compared to the sum of all previous experience.
 ** First Graph
 [[./PartD/PartDTest1.png]]
@@ -102,11 +101,11 @@ It seems that decreasing the episilon decay allows the agent to stabilize on an 
 ** Third Graph
 [[./PartF/PartFTest3.png]]
 * Part G
-To make my most powerfull agent, I will take the best aspects from each other agent.
+To make my most powerful agent, I will take the best aspects from each other agent.
 The following parameters will be used.
 I have increased my episodes from 300,000 to 1,000,000.
 In theory, this will allow the agent to get even more experience, which should result in better performance.
-I will keep the alpha low. Afterall, we will have many changes to change
+I will keep the alpha low. After all, we will have many changes to change
 - alpha = 0.1
 - gamma = 0.99
 - episilon = 1.0
@@ -118,3 +117,33 @@ I will keep the alpha low. Afterall, we will have many changes to change
 As you can see, my ultimate agent did well.
 It quickly achieved a plateau of scoring well within -0.2 to 0 average points per episode.
 * Part H
+To implement noise, I have added an additional noise parameter (p) and changed my choose_action function to the following.
+#+BEGIN_SRC python
+def choose_action(state, episilon):
+    if random.random() < episilon:
+        action = env.action_space.sample()
+    else:
+        action = int(np.argmax(Q[state]))
+
+    if random.random() < p:
+        action = 1 - action
+
+    return action
+#+END_SRC
+
+This changes the given choice to it's opposite.
+
+To test different values of noise, I have conducted the following tests.
+- In the first graph, noise = 0.0
+- In the second graph, noise = 0.1
+- In the third graph, noise = 0.25
+It seems that agents struggle when their actions are somewhat randomized.
+Noise limits the agent's average score.
+For example, in the second graph the plateau is at -0.2 to -0.1.
+I don't believe the learning rate is effected very much by the noise factor.
+** First Graph
+[[./PartH/PartHTest1.png]]
+** Second Graph
+[[./PartH/PartHTest2.png]]
+** Third Graph
+[[./PartH/PartHTest3.png]]

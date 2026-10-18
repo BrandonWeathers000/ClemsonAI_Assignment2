@@ -1,4 +1,4 @@
-% Created 2026-10-18 Sun 15:32
+% Created 2026-10-18 Sun 18:18
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 
@@ -14,7 +14,7 @@
 \usepackage{capt-of}
 \usepackage{hyperref}
 \author{Brandon Weathers}
-\date{10/15/2026}
+\date{10/18/2026}
 \title{Assignment 2 Answers}
 \hypersetup{
  pdfauthor={Brandon Weathers},
@@ -26,8 +26,10 @@
 \begin{document}
 
 \maketitle
-\section*{Part A}
-\label{sec:org7e2929e}
+\tableofcontents
+
+\section{Part A}
+\label{sec:org3ee0ca7}
 Blackjack is a card game played between at least 2 participants.
 For this example, there will only be two participants.
 The first (and simpler) participant is the dealer.
@@ -55,9 +57,9 @@ Considering all previous conditions. The following can be said.
 \item After the player stands, their sum is equal to the dealer's sum (push). A reward of +0 is given.
 \end{itemize}
 \end{itemize}
-\section*{Part B}
-\label{sec:org50367c4}
-I have created the blackjack CLI agent to implement the Q-learning algorithm. The following code snippit is found withtin the training function.
+\section{Part B}
+\label{sec:org9d33ddb}
+I have created the blackjack CLI agent to implement the Q-learning algorithm. The following code snippet is found within the training function.
 \begin{verbatim}
 if terminated or truncated:
     target = reward
@@ -70,8 +72,8 @@ Q[state + (action,)] += alpha * (
 \end{verbatim}
 
 Please run my BlackjackCLI.py script to train the algorithm yourself.
-\section*{Part C}
-\label{sec:orgc2e48a2}
+\section{Part C}
+\label{sec:org2e001e3}
 My baseline parameters for AI training are:
 \begin{itemize}
 \item alpha = 0.1
@@ -87,10 +89,10 @@ After quickly jumping to an average reward of -0.4 from the first few rounds, th
 There is a plateau from episodes 200,000 to 300,000.
 Perhaps additional training from episode 200,000 is unnecessary?
 \begin{center}
-\includegraphics[width=.9\linewidth]{./InitialTraining/InitialPlot.png}
+\includegraphics[width=.9\linewidth]{./PartC/InitialPlot.png}
 \end{center}
-\section*{Part D}
-\label{sec:orge304aa8}
+\section{Part D}
+\label{sec:org2e0eb7f}
 All other parameters are the same as in part C except.
 \begin{itemize}
 \item In the first graph, alpha = 0.2
@@ -99,48 +101,53 @@ All other parameters are the same as in part C except.
 \end{itemize}
 
 Generally speaking, it seems increasing the alpha parameters makes the variance larger.
-In other words, the graph seems to be more violtile.
+In other words, the graph seems to be more volatile.
 This is reasonable conclusion because the alpha parameter represents how valued new experience is compared to the sum of all previous experience.
-\subsection*{First Graph}
-\label{sec:org6af2448}
+\subsection{First Graph}
+\label{sec:orgc2108b1}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./PartD/PartDTest1.png}
 \end{center}
-\subsection*{Second Graph}
-\label{sec:orgc3cc331}
+\subsection{Second Graph}
+\label{sec:orgdd0f8fd}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./PartD/PartDTest2.png}
 \end{center}
-\subsection*{Third Graph}
-\label{sec:org9c90587}
+\subsection{Third Graph}
+\label{sec:org9924328}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./PartD/PartDTest3.png}
 \end{center}
-\section*{Part E}
-\label{sec:org69cb18e}
+\section{Part E}
+\label{sec:org17e33a3}
 All other parameters are the same as in part C except.
 \begin{itemize}
 \item In the first graph, gamma = 0.5
 \item In the second graph, gamma = 0.9
 \item In the third graph, gamma = 0.99
 \end{itemize}
-\subsection*{First Graph}
-\label{sec:org3c138aa}
+The first test yields a result that is very strange.
+There seems to be very low variance and also very low reward.
+This agent never once averages a -0.2 or above.
+This is different than all other agents.
+Other than that, it seems increasing the gamma factor allows the agent to be more stable.
+\subsection{First Graph}
+\label{sec:orge81af05}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./PartE/PartETest1.png}
 \end{center}
-\subsection*{Second Graph}
-\label{sec:orgcf22e3f}
+\subsection{Second Graph}
+\label{sec:org008dbbb}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./PartE/PartETest2.png}
 \end{center}
-\subsection*{Third Graph}
-\label{sec:orgd318206}
+\subsection{Third Graph}
+\label{sec:org2299c0d}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./PartE/PartETest3.png}
 \end{center}
-\section*{Part F}
-\label{sec:orga3ec1dc}
+\section{Part F}
+\label{sec:org06a4d3e}
 Now, I will alter the episilon decay.
 All other parameters are the same as in part C except.
 \begin{itemize}
@@ -148,10 +155,87 @@ All other parameters are the same as in part C except.
 \item In the second graph, episilon decay = 0.999
 \item In the third graph, episilon decay  = 0.99
 \end{itemize}
-\subsection*{First Graph}
-\label{sec:org39b47b2}
-\subsection*{Second Graph}
-\label{sec:orgaa3b1d1}
-\subsection*{Third Graph}
-\label{sec:orgc674116}
+In the second graph there is a very interesting outlier.
+In the first few rounds the agent somehow averages +1.0!
+Nevertheless, is averages out at a score between -0.2 and 0.
+It seems that decreasing the episilon decay allows the agent to stabilize on an optimal strategy given minimal episodes.
+\subsection{First Graph}
+\label{sec:orga666e5e}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./PartF/PartFTest1.png}
+\end{center}
+\subsection{Second Graph}
+\label{sec:orgf3515e7}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./PartF/PartFTest2.png}
+\end{center}
+\subsection{Third Graph}
+\label{sec:orge163776}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./PartF/PartFTest3.png}
+\end{center}
+\section{Part G}
+\label{sec:org82feac4}
+To make my most powerful agent, I will take the best aspects from each other agent.
+The following parameters will be used.
+I have increased my episodes from 300,000 to 1,000,000.
+In theory, this will allow the agent to get even more experience, which should result in better performance.
+I will keep the alpha low. After all, we will have many changes to change
+\begin{itemize}
+\item alpha = 0.1
+\item gamma = 0.99
+\item episilon = 1.0
+\item episilon decay  = 0.99
+\item episilon\textsubscript{min} = 0.05
+\item episodes = 1,000,000
+\end{itemize}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./PartG/UltimateTest.png}
+\end{center}
+
+As you can see, my ultimate agent did well.
+It quickly achieved a plateau of scoring well within -0.2 to 0 average points per episode.
+\section{Part H}
+\label{sec:orga78846a}
+To implement noise, I have added an additional noise parameter (p) and changed my choose\textsubscript{action} function to the following.
+\begin{verbatim}
+def choose_action(state, episilon):
+    if random.random() < episilon:
+        action = env.action_space.sample()
+    else:
+        action = int(np.argmax(Q[state]))
+
+    if random.random() < p:
+        action = 1 - action
+
+    return action
+\end{verbatim}
+
+This changes the given choice to it's opposite.
+
+To test different values of noise, I have conducted the following tests.
+\begin{itemize}
+\item In the first graph, noise = 0.0
+\item In the second graph, noise = 0.1
+\item In the third graph, noise = 0.25
+\end{itemize}
+It seems that agents struggle when their actions are somewhat randomized.
+Noise limits the agent's average score.
+For example, in the second graph the plateau is at -0.2 to -0.1.
+I don't believe the learning rate is effected very much by the noise factor.
+\subsection{First Graph}
+\label{sec:org87f5b99}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./PartH/PartHTest1.png}
+\end{center}
+\subsection{Second Graph}
+\label{sec:orgbf61dc2}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./PartH/PartHTest2.png}
+\end{center}
+\subsection{Third Graph}
+\label{sec:orgd5e1e44}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./PartH/PartHTest3.png}
+\end{center}
 \end{document}

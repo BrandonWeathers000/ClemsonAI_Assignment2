@@ -6,7 +6,7 @@ gamma = 0.99
 episilon = 1.0
 episilon_min = 0.05
 episilon_decay = 0.99
-episodes = 1_000_000
+episodes = 300_000
 
 import gymnasium as gym
 from time import sleep
