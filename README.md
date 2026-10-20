@@ -15,15 +15,15 @@ The insturctions and my answers are in the root directory of this project.
 - python libraries
   - gymnasium 
   - numpy
-  - random
-  - os
-  - csv
+  - matplotlib
+  - pandas
+  - pygame
 
 # How to Run
 The following instructions are a guide to training your own AI agent.
 1. Clone this repo
 2. cd into ClemsonAI_Assignment2/PartB
-3. python BlackjackCLI.py
+3. python BlackjackCLI.py (You may need to set up a python environment depending on your OS.)
    1. If you want to play blackjack, now you can.
    2. If you want the AI to play that round for you, press "t".
    3. If you want to quit playing, press "q".

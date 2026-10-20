@@ -17,7 +17,7 @@ import os
 import csv
 
 pygame.init()
-pygame.font.init()
+# pygame.font.init()
 clock = pygame.time.Clock()
 env = gym.make("Blackjack-v1", natural=True)
 
